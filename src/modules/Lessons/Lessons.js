@@ -31,8 +31,7 @@ class Lessons extends Component {
     super(props);
 
 
-    this.state = {
-      activeLesson: LESSON_TYPES.CONTAINER_PRESENT,
+    this.state = {activeLesson: LESSON_TYPES.CONTAINER_PRESENT
     };
   }
 
