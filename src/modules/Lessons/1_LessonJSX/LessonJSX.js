@@ -4,17 +4,23 @@ import PropTypes from 'prop-types';
 import JSXIntro from './components/JSXIntro';
 import JSXExpressions from './components/JSXExpressions';
 import JSXAttributes from './components/JSXAttributes';
+import NavMenu from '../NavMenu';
 
 import './LessonJSX.css';
 
 const LessonJSX = ({title}) => {
   return (
-      <div className="lesson-container">
-        <JSXIntro title={title} />
-        <div className="lesson-parts">
-          <JSXExpressions />
-          <JSXAttributes />
-        </div>
+      <div className="row">
+          <div className="col-3.5">
+          <NavMenu />
+          </div>
+          <div className="col">
+            <JSXIntro title={title} />
+            <div className="lesson-parts">
+              <JSXExpressions />
+              <JSXAttributes />
+            </div>
+          </div>
       </div>
   );
 };
