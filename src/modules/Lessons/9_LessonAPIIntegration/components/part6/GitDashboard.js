@@ -7,16 +7,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class GitDashboard extends Component {
   constructor(props) {
     super(props);
-
+    let url_match = props.match;
     this.state = {
       data: null,
-      isUserView: true,
+      isUserView: !url_match.params['user'],
       searchKeyword: '',
-      allResults: true
+      allResults: true,
+      match: props.match
     };
     this.loadUsers = this.loadUsers.bind(this);
     this.loadReposCB = this.loadReposCB.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+  }
+  onSearchChange(event)
+  {
+      let search = event.target.value;
+      this.setState({allResults: search.length == 0? true: false, searchKeyword: search});
   }
   loadReposCB(repos_link)
   {
@@ -36,19 +42,14 @@ class GitDashboard extends Component {
           // always executed
       })
   }
-  onSearchChange(event)
-  {
-      let search = event.target.value;
-      this.setState({allResults: search.length == 0? true: false,
-          searchKeyword: search});
-  }
   loadUsers()
   {
       axios.get('https://api.github.com/users')
           .then((response) => {
               console.log(response.data);
               this.setState({
-                  data: response.data
+                  data: response.data,
+                  isUserView: true
               });
           })
           .catch(function (error) {
@@ -60,9 +61,18 @@ class GitDashboard extends Component {
           })
   }
   componentDidMount() {
-      this.loadUsers();
+      if(this.state.isUserView)
+          this.loadUsers();
+      else
+          this.loadReposCB(`https://api.github.com/users/${this.state.match.params['user']}/repos`);
   }
-
+  componentWillReceiveProps({match})
+  {
+      if(match.params['user'])
+        this.loadReposCB(`https://api.github.com/users/${match.params['user']}/repos`);
+      else
+          this.loadUsers();
+  }
   render() {
       let styles = {float: 'none', margin: '0 auto'}
     return (

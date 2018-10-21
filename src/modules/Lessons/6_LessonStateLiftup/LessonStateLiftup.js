@@ -5,15 +5,21 @@ import Intro from './components/StateLiftupIntro';
 import TemperatureCalculator from './components/tempCalculators/part1/TemperatureCalculator';
 
 import './LessonStateLiftup.css';
+import NavMenu from "../NavMenu";
 
 const LessonStateLiftup = ({title}) => {
   return (
-    <div className="lesson-container">
-      <Intro title={title}/>
-      <div className="lesson-parts">
-        <TemperatureCalculator />
+      <div className="row">
+          <div className="col-3.5">
+              <NavMenu />
+          </div>
+          <div className="col">
+              <Intro title={title}/>
+              <div className="lesson-parts">
+                  <TemperatureCalculator />
+              </div>
+          </div>
       </div>
-    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {Link} from 'react-router-dom';
 //import './UserCard.css';
 const RenderUsers = ({userdata, loadReposCB}) =>
 {
@@ -23,7 +23,9 @@ const RenderUsers = ({userdata, loadReposCB}) =>
                         <b>Type: {user.site_admin? "Admin/" : ""}</b>{user.type}<br/>
                     </div>
                     <div className="col-3">
-                        <button onClick={() => loadReposCB(user.repos_url)}>View Repositories</button>
+                        <Link to={`/lesson/api-integration/repos/${user.login}`}>
+                        <button >View Repositories</button>
+                        </Link>
                     </div>
                 </div>
         </div>
